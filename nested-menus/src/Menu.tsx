@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useEffect, useRef } from "react";
 import type { Node } from "@react-types/shared";
 import type { AriaMenuProps, MenuTriggerProps } from "@react-types/menu";
@@ -12,7 +11,6 @@ import {
 } from "react-aria";
 import { Button } from "./Button";
 import { Popover } from "./Popover";
-import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { AriaButtonProps } from "@react-types/button";
 import { useButton, useFocusRing, mergeProps } from "react-aria";
 
@@ -31,11 +29,11 @@ export const NestedMenuButton = React.forwardRef(
     let { buttonProps, isPressed } = useButton(props, ref);
     let { focusProps, isFocusVisible } = useFocusRing();
 
-    let bg = "bg-blue-500";
+    let bg = "";
     if (props.isDisabled) {
       bg = "bg-gray-400";
     } else if (isPressed || props.isPressed) {
-      bg = "bg-blue-600";
+      bg = "bg-blue-500";
     }
 
     let focus = isFocusVisible ? "ring ring-offset-2 ring-blue-400" : "";
@@ -44,7 +42,7 @@ export const NestedMenuButton = React.forwardRef(
       <button
         {...mergeProps(buttonProps, focusProps)}
         ref={ref}
-        className={`${focus} text-sm font-semibold rounded cursor-default focus:outline-none transition flex w-[200px] `}
+        className={`${bg} ${focus} text-sm rounded cursor-default focus:outline-none transition flex w-[200px]`}
       >
         {props.children}
       </button>
@@ -70,7 +68,6 @@ export function NestedMenu<T extends object>(props: MenuButtonProps<T>) {
         ref={ref}
       >
         {props.label}
-        {/* <ChevronRightIcon className="inline ml-1 -mr-2 h-5 w-5" /> */}
       </NestedMenuButton>
       {state.isOpen && (
         <Popover state={state} triggerRef={ref} placement="right top">
@@ -85,6 +82,7 @@ export function NestedMenu<T extends object>(props: MenuButtonProps<T>) {
     </div>
   );
 }
+
 export function MenuButton<T extends object>(props: MenuButtonProps<T>) {
   // Create state based on the incoming props
   let state = useMenuTriggerState(props);
@@ -198,7 +196,6 @@ interface MenuItemProps<T> {
 }
 
 function MenuItem<T>({ item, state, onAction, onClose }: MenuItemProps<T>) {
-  // Get props for the menu item element
   let ref = React.useRef();
   let { menuItemProps } = useMenuItem(
     {
@@ -226,3 +223,5 @@ function MenuItem<T>({ item, state, onAction, onClose }: MenuItemProps<T>) {
     </li>
   );
 }
+
+
