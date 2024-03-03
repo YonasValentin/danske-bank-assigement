@@ -61,7 +61,7 @@ export function NestedMenu<T extends object>(props: MenuButtonProps<T>) {
   useEffect(() => {}, []);
 
   return (
-    <div style={{ position: 'relative', display: 'inline-block' }}>
+    <div className='relative inline-block'>
       <NestedMenuButton
         {...menuTriggerProps}
         isPressed={state.isOpen}
@@ -92,7 +92,7 @@ export function MenuButton<T extends object>(props: MenuButtonProps<T>) {
   let { menuTriggerProps, menuProps } = useMenuTrigger<T>({}, state, ref);
 
   return (
-    <div style={{ position: 'relative', display: 'inline-block' }}>
+    <div className='relative inline-block'>
       <Button {...menuTriggerProps} isPressed={state.isOpen} ref={ref}>
         {props.label}
       </Button>
@@ -217,7 +217,7 @@ function MenuItem<T>({ item, state, onAction, onClose }: MenuItemProps<T>) {
     <li
       {...menuItemProps}
       ref={ref}
-      className={`${focus} text-sm cursor-default select-none relative mx-1 rounded py-2 pl-3 focus:outline-none `}
+      className={`${focus} text-sm cursor-default select-none relative mx-1 rounded py-2 pl-3 focus:outline-none`}
     >
       {item.rendered}
     </li>
