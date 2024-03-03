@@ -1,10 +1,10 @@
-import * as React from "react";
-import { Section, Item } from "react-stately";
-import { MenuButton, NestedMenu } from "./Menu";
+import * as React from 'react';
+import { Section, Item } from 'react-stately';
+import { MenuButton, NestedMenu } from './Menu';
 
 export default function App() {
   return (
-    <div className="flex flex-col max-w-xl mx-auto p-4">
+    <div className='flex flex-col max-w-xl mx-auto p-4'>
       {/* prettier-ignore */}
       <MenuButton label="Actions" onAction={() => {}}>
         <Section>

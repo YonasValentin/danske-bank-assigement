@@ -1,6 +1,6 @@
-import { AriaButtonProps } from "@react-types/button";
-import React from "react";
-import { useButton, useFocusRing, mergeProps } from "react-aria";
+import { AriaButtonProps } from '@react-types/button';
+import React from 'react';
+import { useButton, useFocusRing, mergeProps } from 'react-aria';
 
 interface ButtonProps extends AriaButtonProps {
   isPressed: boolean;
@@ -11,14 +11,14 @@ export const Button = React.forwardRef(
     let { buttonProps, isPressed } = useButton(props, ref);
     let { focusProps, isFocusVisible } = useFocusRing();
 
-    let bg = "bg-blue-500";
+    let bg = 'bg-blue-500';
     if (props.isDisabled) {
-      bg = "bg-gray-400";
+      bg = 'bg-gray-400';
     } else if (isPressed || props.isPressed) {
-      bg = "bg-blue-600";
+      bg = 'bg-blue-600';
     }
 
-    let focus = isFocusVisible ? "ring ring-offset-2 ring-blue-400" : "";
+    let focus = isFocusVisible ? 'ring ring-offset-2 ring-blue-400' : '';
 
     return (
       <button

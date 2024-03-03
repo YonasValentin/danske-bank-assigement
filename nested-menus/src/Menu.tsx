@@ -1,18 +1,18 @@
-import React, { useEffect, useRef } from "react";
-import type { Node } from "@react-types/shared";
-import type { AriaMenuProps, MenuTriggerProps } from "@react-types/menu";
-import { TreeState, useMenuTriggerState, useTreeState } from "react-stately";
+import React, { useEffect, useRef } from 'react';
+import type { Node } from '@react-types/shared';
+import type { AriaMenuProps, MenuTriggerProps } from '@react-types/menu';
+import { TreeState, useMenuTriggerState, useTreeState } from 'react-stately';
 import {
   useMenu,
   useMenuItem,
   useMenuSection,
   useMenuTrigger,
-  useSeparator
-} from "react-aria";
-import { Button } from "./Button";
-import { Popover } from "./Popover";
-import { AriaButtonProps } from "@react-types/button";
-import { useButton, useFocusRing, mergeProps } from "react-aria";
+  useSeparator,
+} from 'react-aria';
+import { Button } from './Button';
+import { Popover } from './Popover';
+import { AriaButtonProps } from '@react-types/button';
+import { useButton, useFocusRing, mergeProps } from 'react-aria';
 
 interface MenuButtonProps<T extends object>
   extends AriaMenuProps<T>,
@@ -29,14 +29,14 @@ export const NestedMenuButton = React.forwardRef(
     let { buttonProps, isPressed } = useButton(props, ref);
     let { focusProps, isFocusVisible } = useFocusRing();
 
-    let bg = "";
+    let bg = '';
     if (props.isDisabled) {
-      bg = "bg-gray-400";
+      bg = 'bg-gray-400';
     } else if (isPressed || props.isPressed) {
-      bg = "bg-blue-500";
+      bg = 'bg-blue-500';
     }
 
-    let focus = isFocusVisible ? "ring ring-offset-2 ring-blue-400" : "";
+    let focus = isFocusVisible ? 'ring ring-offset-2 ring-blue-400' : '';
 
     return (
       <button
@@ -61,7 +61,7 @@ export function NestedMenu<T extends object>(props: MenuButtonProps<T>) {
   useEffect(() => {}, []);
 
   return (
-    <div style={{ position: "relative", display: "inline-block" }}>
+    <div style={{ position: 'relative', display: 'inline-block' }}>
       <NestedMenuButton
         {...menuTriggerProps}
         isPressed={state.isOpen}
@@ -70,7 +70,7 @@ export function NestedMenu<T extends object>(props: MenuButtonProps<T>) {
         {props.label}
       </NestedMenuButton>
       {state.isOpen && (
-        <Popover state={state} triggerRef={ref} placement="right top">
+        <Popover state={state} triggerRef={ref} placement='right top'>
           <Menu
             {...menuProps}
             {...props}
@@ -92,12 +92,12 @@ export function MenuButton<T extends object>(props: MenuButtonProps<T>) {
   let { menuTriggerProps, menuProps } = useMenuTrigger<T>({}, state, ref);
 
   return (
-    <div style={{ position: "relative", display: "inline-block" }}>
+    <div style={{ position: 'relative', display: 'inline-block' }}>
       <Button {...menuTriggerProps} isPressed={state.isOpen} ref={ref}>
         {props.label}
       </Button>
       {state.isOpen && (
-        <Popover state={state} triggerRef={ref} placement="bottom">
+        <Popover state={state} triggerRef={ref} placement='bottom'>
           <Menu
             {...menuProps}
             {...props}
@@ -126,7 +126,7 @@ function Menu<T extends object>(props: MenuProps<T>) {
     <ul
       {...menuProps}
       ref={ref}
-      className="pt-1 pb-1 shadow-xs rounded-md min-w-[200px] focus:outline-none"
+      className='pt-1 pb-1 shadow-xs rounded-md min-w-[200px] focus:outline-none'
     >
       {[...state.collection].map((item) => (
         <MenuSection
@@ -152,15 +152,15 @@ function MenuSection<T>({
   section,
   state,
   onAction,
-  onClose
+  onClose,
 }: MenuSectionProps<T>) {
   let { itemProps, groupProps } = useMenuSection({
     heading: section.rendered,
-    "aria-label": section["aria-label"]
+    'aria-label': section['aria-label'],
   });
 
   let { separatorProps } = useSeparator({
-    elementType: "li"
+    elementType: 'li',
   });
 
   return (
@@ -168,7 +168,7 @@ function MenuSection<T>({
       {section.key !== state.collection.getFirstKey() && (
         <li
           {...separatorProps}
-          className="border-t border-gray-300 mx-2 mt-1 mb-1"
+          className='border-t border-gray-300 mx-2 mt-1 mb-1'
         />
       )}
       <li {...itemProps}>
@@ -201,7 +201,7 @@ function MenuItem<T>({ item, state, onAction, onClose }: MenuItemProps<T>) {
     {
       key: item.key,
       onAction,
-      onClose
+      onClose,
     },
     state,
     ref
@@ -210,8 +210,8 @@ function MenuItem<T>({ item, state, onAction, onClose }: MenuItemProps<T>) {
   // Handle focus events so we can apply highlighted
   // style to the focused menu item
   let isFocused = state.selectionManager.focusedKey === item.key;
-  let focusBg = item.key === "delete" ? "bg-red-500" : "bg-blue-500";
-  let focus = isFocused ? `${focusBg} text-white` : "text-gray-900";
+  let focusBg = item.key === 'delete' ? 'bg-red-500' : 'bg-blue-500';
+  let focus = isFocused ? `${focusBg} text-white` : 'text-gray-900';
 
   return (
     <li
@@ -223,5 +223,3 @@ function MenuItem<T>({ item, state, onAction, onClose }: MenuItemProps<T>) {
     </li>
   );
 }
-
-
