@@ -1,15 +1,15 @@
 import type { OverlayTriggerState } from 'react-stately';
 import type { AriaPopoverProps } from '@react-aria/overlays';
-import * as React from 'react';
+import React, { ReactNode, useRef } from 'react';
 import { usePopover, DismissButton, Overlay } from '@react-aria/overlays';
 
 interface PopoverProps extends Omit<AriaPopoverProps, 'popoverRef'> {
-  children: React.ReactNode;
+  children: ReactNode;
   state: OverlayTriggerState;
 }
 
 export function Popover(props: PopoverProps) {
-  let ref = React.useRef<HTMLDivElement>(null);
+  let ref = useRef<HTMLDivElement>(null);
   let { state, children } = props;
 
   let { popoverProps, underlayProps } = usePopover(

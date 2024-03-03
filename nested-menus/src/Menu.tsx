@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, forwardRef, RefObject, Key } from 'react';
 import type { Node } from '@react-types/shared';
 import type { AriaMenuProps, MenuTriggerProps } from '@react-types/menu';
 import { TreeState, useMenuTriggerState, useTreeState } from 'react-stately';
@@ -24,8 +24,8 @@ interface ButtonProps extends AriaButtonProps {
   isPressed: boolean;
 }
 
-export const NestedMenuButton = React.forwardRef(
-  (props: ButtonProps, ref: React.RefObject<HTMLButtonElement>) => {
+export const NestedMenuButton = forwardRef(
+  (props: ButtonProps, ref: RefObject<HTMLButtonElement>) => {
     let { buttonProps, isPressed } = useButton(props, ref);
     let { focusProps, isFocusVisible } = useFocusRing();
 
@@ -55,7 +55,7 @@ export function NestedMenu<T extends object>(props: MenuButtonProps<T>) {
   let state = useMenuTriggerState(props);
 
   // Get props for the menu trigger and menu elements
-  let ref = React.useRef();
+  let ref = useRef();
   let { menuTriggerProps, menuProps } = useMenuTrigger<T>({}, state, ref);
 
   useEffect(() => {}, []);
@@ -88,7 +88,7 @@ export function MenuButton<T extends object>(props: MenuButtonProps<T>) {
   let state = useMenuTriggerState(props);
 
   // Get props for the menu trigger and menu elements
-  let ref = React.useRef();
+  let ref = useRef();
   let { menuTriggerProps, menuProps } = useMenuTrigger<T>({}, state, ref);
 
   return (
@@ -144,7 +144,7 @@ function Menu<T extends object>(props: MenuProps<T>) {
 interface MenuSectionProps<T> {
   section: Node<T>;
   state: TreeState<T>;
-  onAction: (key: React.Key) => void;
+  onAction: (key: Key) => void;
   onClose: () => void;
 }
 
@@ -191,12 +191,12 @@ function MenuSection<T>({
 interface MenuItemProps<T> {
   item: Node<T>;
   state: TreeState<T>;
-  onAction: (key: React.Key) => void;
+  onAction: (key: Key) => void;
   onClose: () => void;
 }
 
 function MenuItem<T>({ item, state, onAction, onClose }: MenuItemProps<T>) {
-  let ref = React.useRef();
+  let ref = useRef();
   let { menuItemProps } = useMenuItem(
     {
       key: item.key,
